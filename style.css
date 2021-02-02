@@ -1,0 +1,15 @@
+* {
+  padding: 0;
+  margin: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  font-family: 'Source Serif Pro', serif;
+}
+
+body canvas {
+  height: 400px;
+  width: 100%;
+  background-image: url("./images/galaxy.jpg");
+  background-size: cover;
+}
+/*# sourceMappingURL=style.css.map */
