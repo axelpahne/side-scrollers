@@ -51,7 +51,7 @@ function gameArea() {
     myGamePiece = new Image();
     myGamePiece.src = "./images/rymdtesla100px.png";
     myGamePiece.onload = function() {
-        context.drawImage(myGamePiece, 0, 50);
+        context.drawImage(myGamePiece, 0, 50, 10, 10);
     };
 }
 
