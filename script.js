@@ -28,6 +28,9 @@ let lastSpawn = -1;
 // Spawn a new object every 1500ms
 let spawnRate = 1500;
 
+
+
+
 //Create all images
 const teslaSprite = new Image();
 teslaSprite.src = './images/sprite-liggande.png';
@@ -39,7 +42,10 @@ const boomImg = new Image();
 boomImg.src = './images/boom.png';
 const winImg = new Image();
 winImg.src = './images/goal.png';
+const spaceImg = new Image();
+spaceImg.src = './images/spaceship.svg';
 
+let arrayImg = [spaceImg, background, moon]
 
 
 //Start program (Paint Canvas)
@@ -88,6 +94,10 @@ function startGame() {
     //Empty array
     moonObject = [];
 
+    myAudio = document.getElementById('myAudio')
+    myAudio.src = "crash-sound"
+    myAudio.play();
+
 }
 
 /**
@@ -98,6 +108,10 @@ function gameOver() {
 
     ctx.drawImage(boomImg, character.x + 230, character.y - 20, 200, 200);
     startBtn.style.display = ''
+
+    myAudio = document.getElementById('myAudio')
+    myAudio.src = "sounds/explosion.wav"
+    myAudio.play();
 
 }
 
@@ -111,7 +125,9 @@ function winGame() {
     startBtn.style.display = ''
     ctx.drawImage(winImg, 400, 0, 500, 767);
 
-
+    myAudio = document.getElementById('myAudio')
+    myAudio.src = "crash-sound"
+    myAudio.play();
 }
 
 
@@ -182,11 +198,13 @@ function createElements(idValue) {
     let h2 = document.createElement('h2')
     let span = document.createElement('span')
     let button = document.createElement('button')
+    let myAudio = document.createElement('audio')
 
     //Insert element to div / scoreboard
     div.insertAdjacentElement("afterbegin", button)
     div.insertAdjacentElement("afterbegin", span)
     div.insertAdjacentElement("afterbegin", h2)
+    div.insertAdjacentElement("afterbegin", myAudio)
 
     //Set text to elements
     button.innerHTML = 'Play'
@@ -195,6 +213,7 @@ function createElements(idValue) {
     div.id = 'my' + idValue
     span.id = 'myScore-' + idValue;
     button.id = 'startBtn';
+    myAudio.id = 'myAudio'
 
     // // Write text
     h2.innerHTML = 'Score'
@@ -253,7 +272,7 @@ function animate() {
     myScore.innerHTML = score
 
     // If on collison and score is less than valie then run...
-    if (runAnimation == true && score <= 30) {
+    if (runAnimation == true && score <= 70) {
 
         //Clears Canvas
         ctx.clearRect(0, 0, canvas.width, canvas.height)
@@ -281,7 +300,7 @@ function animate() {
 
             let object = moonObject[i];
             object.x -= 4;
-            ctx.drawImage(moon, object.x, object.y, object.width, object.height);
+            ctx.drawImage(object.img, object.x, object.y, object.width, object.height);
         }
 
         //Detects Collison
@@ -297,7 +316,7 @@ function animate() {
         console.log('nooo')
         gameOver()
 
-    } else if (score = 30) {
+    } else if (score = 70) {
 
         console.log('nooosss')
 
@@ -356,6 +375,11 @@ function randomMoon() {
     let y = getRandomIntInclusive(0, canvas.height);
     let x = getRandomIntInclusive(canvas.width - 100, canvas.width);
 
+
+    let index = getRandomIntInclusive(0, 2)
+
+    arrayImg[index]
+
     // Set moon size
     let width = getRandomIntInclusive(100, 500);
     let height = width;
@@ -365,7 +389,8 @@ function randomMoon() {
         x: x,
         y: y,
         width: width,
-        height: height
+        height: height,
+        img: arrayImg[index]
     }
 
     //Push moon to array
