@@ -3,16 +3,34 @@
     margin: 0;
     box-sizing: border-box;
     font-family: 'Source Serif Pro', serif;
+    // outline: 2px solid red
 }
 
 
 
 body {
-
-canvas{
-    height: 400px;
-    width: 100%;
-    background-image: url('./images/galaxy.jpg');
-    background-size: cover;
+    border: 2px solid yellowgreen;
 }
+
+
+canvas {
+
+    // width: 90vw;
+    // height: 70vh;
+    // background-image: url('/images/galaxy.jpg');
+
+    // background-image: url('/images/sprite-liggande.png');
+
+
+    background-size: cover;
+    background-position: center;
+    outline: 4px solid red;
+
+    // img {
+    //     position: absolute;
+    //     height: 1rem;
+    //     width: 1rem;
+    //     border: 2px solid yellow;
+    //     // bottom: 50%;
+    // }
 }
