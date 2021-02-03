@@ -82,25 +82,33 @@ function createCanvas() {
  *@Description Animate / paint canvas
  */
 
+setinterval{​​
+    function(animate)}​​, 3000);
+
 function animate() {
     //Clears Canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     //Draws Canvas
     ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
-    console.log(positon);
+    // console.log(positon);
 
     positon++;
     //Draw moons
 
-    ctx.drawImage(moon, 1100 - positon, 0, 300, 300);
-    ctx.drawImage(moon, 1000 - positon, 600, 400, 400);
-    ctx.drawImage(moon, 600 - positon, 300, 250, 250);
-    ctx.drawImage(moon, 500 - positon, 700, 200, 200);
+    
+    let myMoon = drawMoon();
 
-    ctx.drawImage(moon, 2100 - positon, 0, 300, 300);
-    ctx.drawImage(moon, 2000 - positon, 600, 400, 400);
-    ctx.drawImage(moon, 1600 - positon, 300, 250, 250);
-    ctx.drawImage(moon, 1500 - positon, 700, 200, 200);
+    ctx.drawImage(moon, myMoon.x, myMoon.y, myMoon.width, myMoon.height);
+
+    // ctx.drawImage(moon, 1100 - positon, 0, 300, 300);
+    // ctx.drawImage(moon, 1000 - positon, 600, 400, 400);
+    // ctx.drawImage(moon, 600 - positon, 300, 250, 250);
+    // ctx.drawImage(moon, 500 - positon, 700, 200, 200);
+
+    // ctx.drawImage(moon, 2100 - positon, 0, 300, 300);
+    // ctx.drawImage(moon, 2000 - positon, 600, 400, 400);
+    // ctx.drawImage(moon, 1600 - positon, 300, 250, 250);
+    // ctx.drawImage(moon, 1500 - positon, 700, 200, 200);
 
     //Calls function that draw character
     drawCharacter(teslaSprite, character.width * character.frameX, character.height * character.frameY, character.width, character.height, character.x, character.y, character.width, character.height)
@@ -110,6 +118,32 @@ function animate() {
 }
 
 
+function drawMoon(){
+
+    // Set y and x position
+    let y = getRandomIntInclusive(0, canvas.height);
+    let x = getRandomIntInclusive(canvas.width - 100, canvas.width);
+
+    // Set moon position
+    let width = getRandomIntInclusive(0, 200);
+    let height = getRandomIntInclusive(0, 200);
+
+    // Create moon object
+    let moon = {
+        x: x,
+        y: y,
+        width: width,
+        height: height
+    }
+
+    return moon;
+}
+
+function getRandomIntInclusive(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1) + min); //The maximum is inclusive and the minimum is inclusive
+}
 
 /**
  *@Description Draw character
@@ -267,7 +301,7 @@ function drawOnCanvas(direction) {
     //Clears Canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    console.log(direction)
+    // console.log(direction)
 
     //Draw on Canvas when char is loaded
 
