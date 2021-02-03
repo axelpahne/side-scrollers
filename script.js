@@ -1,21 +1,32 @@
 // Create all global variable
+
+//Create menu
+// createMenu()
+
+
+
+//Create character
 let character = char();
+//Create canvas
 let canvas = createCanvas();
+//Create scoreBoard elements
+createElements('ScoreBoard')
+//Gets canvas context
 let ctx = canvas.getContext("2d");
-let positon = 0;
-let counter = 0;
+//Create array that holds obsticle objects
 let moonObject = [];
-let myAnimation = true;
+//Create let to control start and stop 
+let runAnimation = true;
+//Gets menu 
+let menu = document.getElementById('myMenu');
+//Gets menu button
+let startBtn = document.getElementById('startBtn');
+//Create gamescore tracker
 let gameScore = 0;
-let score;
-
-// when was the last object spawned
+// When was the last object spawned
 let lastSpawn = -1;
-
-// spawn a new object every 1500ms
+// Spawn a new object every 1500ms
 let spawnRate = 1500;
-
-
 
 //Create all images
 const teslaSprite = new Image();
@@ -23,31 +34,87 @@ teslaSprite.src = './images/sprite-liggande.png';
 const background = new Image();
 background.src = './images/galaxy.jpg';
 const moon = new Image();
-moon.src = './images/moon.png';
+moon.src = './images/asteroid.png';
 const boomImg = new Image();
-boomImg.src = './images/boom.jpg';
+boomImg.src = './images/boom.png';
+const winImg = new Image();
+winImg.src = './images/goal.png';
+
 
 
 //Start program (Paint Canvas)
-
-
-
-// Setup the animation
-
 animate();
-
 
 // Event Listener (Listens for keys pressed)
 document.addEventListener("keydown", event => {
-
     console.log(event.key)
-
+    //Runs function to move character
     moveCharacter(event)
+});
+
+
+// Event Listener (Listens for keys pressed)
+startBtn.addEventListener("click", event => {
+
+    console.log('hej')
+    startGame()
 
 });
 
 
-//Functions
+/**
+ **************************************
+ ************* @Functions *************
+ **************************************
+ */
+
+/**
+ *@Description Create character / hero
+ */
+
+function startGame() {
+
+    console.log('rS')
+
+    // Removes menu
+    startBtn.style.display = 'none'
+
+    // Star.....
+    runAnimation = true;
+
+    // Sets hero to start position
+    character = char();
+
+    //Empty array
+    moonObject = [];
+
+}
+
+/**
+ *@Description Game over
+ */
+
+function gameOver() {
+
+    ctx.drawImage(boomImg, character.x + 230, character.y - 20, 200, 200);
+    startBtn.style.display = ''
+
+}
+
+
+/**
+ *@Description Game over
+ */
+
+function winGame() {
+
+    startBtn.style.display = ''
+    ctx.drawImage(winImg, 400, 0, 500, 767);
+
+
+}
+
+
 
 /**
  *@Description Create character / hero
@@ -55,10 +122,8 @@ document.addEventListener("keydown", event => {
 
 function char() {
 
+    //Create object with properties
     let character = {
-
-        height: 32,
-        jumping: true,
 
         //Position of char
         x: 10,
@@ -84,10 +149,17 @@ function char() {
 function createCanvas() {
 
     //Create canvas
+    let section = document.createElement('section')
     let myCanvas = document.createElement('canvas');
 
+    //Insert element to element
+    section.insertAdjacentElement('beforeend', myCanvas);
+
+    //Add element classes & Ids
+    section.id = 'section'
+
     //Append Elements
-    document.body.insertAdjacentElement('beforeend', myCanvas);
+    document.body.insertAdjacentElement('beforeend', section);
 
     //Canvas size
     myCanvas.width = 1300;
@@ -96,22 +168,93 @@ function createCanvas() {
     return myCanvas
 }
 
+/**
+ *@Description Create Scoreboard
+ */
+
+function createElements(idValue) {
+
+    //Get section
+    let section = document.getElementById('section')
+
+    //Declare variables
+    let div = document.createElement('div')
+    let h2 = document.createElement('h2')
+    let span = document.createElement('span')
+    let button = document.createElement('button')
+
+    //Insert element to div / scoreboard
+    div.insertAdjacentElement("afterbegin", button)
+    div.insertAdjacentElement("afterbegin", span)
+    div.insertAdjacentElement("afterbegin", h2)
+
+    //Set text to elements
+    button.innerHTML = 'Play'
+
+    //Add element classes & Ids
+    div.id = 'my' + idValue
+    span.id = 'myScore-' + idValue;
+    button.id = 'startBtn';
+
+    // // Write text
+    h2.innerHTML = 'Score'
+
+    //Insert element to body
+    section.insertAdjacentElement("afterbegin", div)
+}
+
+/**
+ *@Description Create character / hero
+ */
+
+function createMenu() {
+
+    createElements('Menu')
+    let menu = document.getElementById('myMenu');
+    let button1 = document.createElement('button')
+
+    //Set id to elements
+    button1.id = 'menuBtn';
+
+    //Set text to elements
+    button1.innerHTML = 'Start Game'
+    menu.querySelector('span').innerHTML = "PLay"
+
+    //Insert element to element
+    menu.insertAdjacentElement("beforeend", button1)
+}
+
+/**
+ *@Description Draw character
+ */
+
+function drawCharacter(img, sX, sY, sW, sH, dX, dY, dW, dH) {
+
+    ctx.drawImage(img, sX, sY, sW, sH, dX, dY, dW, dH);
+
+}
+
 
 /**
  *@Description Animate / paint canvas
  */
 
-
-
 function animate() {
 
-    // console.log(myAnimation)
+    console.log(runAnimation);
 
-    detectCollision()
+    //Calcualtes points 
+    let score = (Math.trunc(gameScore / 10))
 
-    score = (Math.trunc(gameScore / 10))
+    //Get span elelmet from scoreboard
+    let myScore = document.getElementById('myScore-ScoreBoard')
 
-    if (myAnimation == true && score <= 50) {
+    //Sets span element to current score
+    myScore.innerHTML = score
+
+    // If on collison and score is less than valie then run...
+    if (runAnimation == true && score <= 30) {
+
         //Clears Canvas
         ctx.clearRect(0, 0, canvas.width, canvas.height)
 
@@ -120,10 +263,6 @@ function animate() {
 
         //Draw score board
         gameScore++;
-
-        ctx.font = '48px serif';
-        ctx.fillStyle = "white";
-        ctx.fillText(score, 10, 50);
 
         // Get Time
         var time = Date.now();
@@ -137,43 +276,35 @@ function animate() {
         //Calls function that draw character
         drawCharacter(teslaSprite, character.width * character.frameX, character.height * character.frameY, character.width, character.height, character.x, character.y, character.width, character.height)
 
-        //Draw moons
-        //Loop through list of arrays
+        //Draw moons (Loop through array of objecte
         for (let i = 0; i < moonObject.length; i++) {
 
             let object = moonObject[i];
             object.x -= 4;
-
             ctx.drawImage(moon, object.x, object.y, object.width, object.height);
-
         }
 
+        //Detects Collison
+        detectCollision()
 
         //Loops function
         requestAnimationFrame(animate);
 
-    } else {
+        // If collison
+
+    } else if (runAnimation == false) {
 
         console.log('nooo')
-
         gameOver()
+
+    } else if (score = 30) {
+
+        console.log('nooosss')
+
+        winGame()
     }
 
 }
-
-
-/**
- *@Description Game over
- */
-
-function gameOver() {
-
-    ctx.drawImage(boomImg, character.x + 270, character.y + 50, 70, 70);
-
-
-}
-
-
 
 
 /**
@@ -192,7 +323,7 @@ function detectCollision() {
 
         if (rectIntersect(obj1.x, obj1.y, obj1.width, obj1.height, character.x, character.y, character.width, character.height)) {
 
-            myAnimation = false;
+            runAnimation = false;
 
             console.log('crash')
         }
@@ -221,12 +352,12 @@ function rectIntersect(x1, y1, w1, h1, x2, y2, w2, h2) {
 
 function randomMoon() {
 
-    // Set y and x position
+    // Set moon position
     let y = getRandomIntInclusive(0, canvas.height);
     let x = getRandomIntInclusive(canvas.width - 100, canvas.width);
 
-    // Set moon position
-    let width = getRandomIntInclusive(0, 500);
+    // Set moon size
+    let width = getRandomIntInclusive(100, 500);
     let height = width;
 
     // Create moon object
@@ -236,8 +367,6 @@ function randomMoon() {
         width: width,
         height: height
     }
-
-    console.log(moon)
 
     //Push moon to array
     moonObject.push(moon);
@@ -251,16 +380,6 @@ function getRandomIntInclusive(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1) + min); //The maximum is inclusive and the minimum is inclusive
-}
-
-/**
- *@Description Draw character
- */
-
-function drawCharacter(img, sX, sY, sW, sH, dX, dY, dW, dH) {
-
-    ctx.drawImage(img, sX, sY, sW, sH, dX, dY, dW, dH);
-
 }
 
 
@@ -329,7 +448,7 @@ function goRight() {
 
     //Makes character move up
     character.x += character.speed;
-    //Changes iamge from sprite sheet
+    //Changes image from sprite sheet
     character.frameX = 3;
 
 }
@@ -342,6 +461,6 @@ function goLeft() {
 
     //Makes character move up
     character.x -= character.speed;
-    //Changes iamge from sprite sheet
+    //Changes image from sprite sheet
     character.frameX = 3;
 }
