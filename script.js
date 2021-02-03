@@ -44,8 +44,18 @@ const winImg = new Image();
 winImg.src = './images/goal.png';
 const spaceImg = new Image();
 spaceImg.src = './images/spaceship.svg';
+const spaceship = new Image();
+spaceship.src = './images/spaceship.png';
+const asteroid2 = new Image();
+asteroid2.src = './images/asteroid2.png';
+const astronaut = new Image();
+astronaut.src = './images/astronaut.png';
+const satellite = new Image();
+satellite.src = './images/satellite.png';
 
-let arrayImg = [spaceImg, background, moon]
+
+// let arrayImg = [spaceImg, background, moon]
+let arrayImg = [spaceship, asteroid2, astronaut, satellite]
 
 
 //Start program (Paint Canvas)
