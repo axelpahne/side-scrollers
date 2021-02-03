@@ -95,7 +95,7 @@ function startGame() {
     moonObject = [];
 
     myAudio = document.getElementById('myAudio')
-    myAudio.src = "crash-sound"
+    myAudio.src = "sounds/main.mp3"
     myAudio.play();
 
 }
@@ -126,7 +126,7 @@ function winGame() {
     ctx.drawImage(winImg, 400, 0, 500, 767);
 
     myAudio = document.getElementById('myAudio')
-    myAudio.src = "crash-sound"
+    myAudio.src = "sounds/goal.wav"
     myAudio.play();
 }
 
