@@ -4,7 +4,7 @@
 // createMenu()
 
 
-
+let animationControl;
 //Create character
 let character = char();
 //Create canvas
@@ -27,8 +27,6 @@ let gameScore = 0;
 let lastSpawn = -1;
 // Spawn a new object every 1500ms
 let spawnRate = 1500;
-
-
 
 
 //Create all images
@@ -66,7 +64,7 @@ animate();
 
 // Event Listener (Listens for keys pressed)
 document.addEventListener("keydown", event => {
-    console.log(event.key)
+    // console.log(event.key)
     //Runs function to move character
     moveCharacter(event)
 });
@@ -95,10 +93,13 @@ function startGame() {
 
     console.log('rS')
 
+    // Starts animation loop
+    requestAnimationFrame(animate)
+
     // Removes menu
     startBtn.style.display = 'none'
 
-    // Star.....
+    // Star.....!!!!!!!!!!!!!!!!!!!!!!!
     runAnimation = true;
 
     // Sets hero to start position
@@ -107,10 +108,13 @@ function startGame() {
     //Empty array
     moonObject = [];
 
+    // Sets Game Score to Zer0
+    gameScore = 0;
+
+    //Control sounds
     myAudio = document.getElementById('myAudio')
     myAudio.src = "sounds/main.mp3"
     myAudio.play();
-
 }
 
 /**
@@ -119,9 +123,16 @@ function startGame() {
 
 function gameOver() {
 
-    ctx.drawImage(boomImg, character.x + 230, character.y - 20, 200, 200);
+    //Draws Boom Image
+    ctx.drawImage(boomImg, character.x + 220, character.y - 40, 250, 250);
+
+    //Removes play button
     startBtn.style.display = ''
 
+    // Cancels animation loop
+    cancelAnimationFrame(animationControl);
+
+    //Plays sound
     myAudio = document.getElementById('myAudio')
     myAudio.src = "sounds/explosion.wav"
     myAudio.play();
@@ -135,9 +146,16 @@ function gameOver() {
 
 function winGame() {
 
+    //Removes play button
     startBtn.style.display = ''
+
+    //Draws image 
     ctx.drawImage(winImg, 400, 0, 500, 767);
 
+    // Cancels animation loop
+    cancelAnimationFrame(animationControl);
+
+    //Plays sound
     myAudio = document.getElementById('myAudio')
     myAudio.src = "sounds/goal.wav"
     myAudio.play();
@@ -320,7 +338,7 @@ function animate() {
         detectCollision()
 
         //Loops function
-        requestAnimationFrame(animate);
+        animationControl = requestAnimationFrame(animate);
 
         // If collison
 
@@ -332,7 +350,6 @@ function animate() {
     } else if (score = 30) {
 
         console.log('nooosss')
-
         winGame()
     }
 
@@ -394,8 +411,17 @@ function randomMoon() {
     arrayImg[index]
 
     // Set moon size
-    let width = getRandomIntInclusive(100, 300);
-    let height = width;
+    let width = getRandomIntInclusive(150, 150);
+    let height = width / 2;
+
+    console.log(index)
+
+    //Sets dimensions for specific indexs in array 
+    if (index == 4 || index == 0 || index == 2) {
+
+        width = getRandomIntInclusive(150, 150);
+        height = width;
+    }
 
     // Create moon object
     let moon = {
