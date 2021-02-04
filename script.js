@@ -29,6 +29,8 @@ let lastSpawn = -1;
 let spawnRate = 1500;
 // Checks when to start score count
 let scoreCountStar = false;
+// Checks when to start score count
+let winGameScore = 100;
 
 
 //Create all images
@@ -345,7 +347,7 @@ function animate() {
     myScore.innerHTML = score
 
     // If on collison and score is less than valie then run...
-    if (runAnimation == true && score <= 50) {
+    if (runAnimation == true && score <= winGameScore) {
 
         //Clears Canvas
         ctx.clearRect(0, 0, canvas.width, canvas.height)
@@ -391,7 +393,7 @@ function animate() {
         console.log('nooo')
         gameOver()
 
-    } else if (score = 50) {
+    } else if (score = winGameScore) {
 
         console.log('nooosss')
         winGame()
