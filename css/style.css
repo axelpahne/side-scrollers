@@ -9,19 +9,23 @@
 body {
   padding: 4rem;
   height: 100%;
-  overflow: hidden;
   font-family: "Luckiest Guy", sans-serif;
   letter-spacing: 1px;
   background-image: url(../images/spaceBG.jpg);
+  -webkit-transform: scale(0.7);
+          transform: scale(0.7);
+  -webkit-transform-origin: top;
+          transform-origin: top;
+  overflow: hidden;
 }
 
 #myScoreBoard {
-  width: 20rem;
+  width: 15rem;
   height: 16rem;
   text-align: center;
   position: absolute;
   top: 20%;
-  left: 5%;
+  left: 0%;
   border-radius: 8px;
   background: #17a2ac;
   display: -webkit-box;
@@ -147,52 +151,6 @@ canvas {
   margin-left: auto;
   margin-right: auto;
   display: block;
-}
-
-#section #curtain-left,
-#section #curtain-right {
-  content: '';
-  position: absolute;
-  z-index: 2;
-  top: -30px;
-  bottom: -30px;
-  width: 61%;
-  -webkit-transition: all 4s ease-out;
-  transition: all 4s ease-out;
-  -webkit-transform: rotate(0deg);
-          transform: rotate(0deg);
-  background-color: #A90505;
-  background-image: -webkit-gradient(linear, left top, right top, color-stop(10%, transparent), color-stop(50%, rgba(255, 255, 255, 0.25)), color-stop(65%, transparent));
-  background-image: linear-gradient(90deg, transparent 10%, rgba(255, 255, 255, 0.25) 50%, transparent 65%);
-  background-repeat: repeat;
-  -webkit-box-shadow: 0 0 10px #555, inset 0 -60px 60px -30px rgba(255, 255, 255, 0.5), inset 0 90px 60px -30px rgba(0, 0, 0, 0.5);
-          box-shadow: 0 0 10px #555, inset 0 -60px 60px -30px rgba(255, 255, 255, 0.5), inset 0 90px 60px -30px rgba(0, 0, 0, 0.5);
-  background-size: 80px;
-}
-
-#curtain-left {
-  left: -10%;
-}
-
-#curtain-right {
-  right: -10%;
-}
-
-#section:hover #curtain-right,
-#section:hover #curtain-left {
-  width: 0;
-  background-size: 1px;
-  -webkit-transition: all 4s ease;
-  transition: all 4s ease;
-  -webkit-transform: rotate(15deg);
-          transform: rotate(15deg);
-}
-
-#section:hover #curtain-right {
-  -webkit-transition: all 4s ease;
-  transition: all 4s ease;
-  -webkit-transform: rotate(-15deg);
-          transform: rotate(-15deg);
 }
 
 #section p {
