@@ -27,6 +27,8 @@ let gameScore = 0;
 let lastSpawn = -1;
 // Spawn a new object every 1500ms
 let spawnRate = 1500;
+// Checks when to start score count
+let scoreCountStar = false;
 
 
 //Create all images
@@ -112,7 +114,7 @@ curR.addEventListener("click", event => {
 
 function startGame() {
 
-    console.log('rS')
+    scoreCountStar = true;
 
     // Starts animation loop
     requestAnimationFrame(animate)
@@ -351,8 +353,10 @@ function animate() {
         //Draws Canvas
         ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
 
-        //Draw score board
-        gameScore++;
+        if (scoreCountStar == true) {
+            //Draw score board
+            gameScore++;
+        }
 
         // Get Time
         var time = Date.now();

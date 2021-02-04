@@ -13,7 +13,9 @@ body {
     overflow: hidden;
     // background: radial-gradient(ellipse at center, rgba(240, 249, 255, 1) 0%, rgba(203, 235, 255, 1) 25%, rgba(161, 219, 255, 1) 100%);
     font-family: "Luckiest Guy", sans-serif;
-    letter-spacing: 1px
+    letter-spacing: 1px;
+    background-color: #d43b14e7;
+
 }
 
 
@@ -24,7 +26,7 @@ body {
     text-align: center;
     position: absolute;
     top: 25rem;
-    left: 9rem;
+    left: 9%;
     border-radius: 8px;
     background: rgb(23, 162, 172);
     display: flex;
@@ -150,8 +152,7 @@ canvas {
     height: 15rem;
     width: 900rem;
     z-index: 2;
-    margin-left: 200px;
-
+    margin-left: 20%;
 }
 
 
