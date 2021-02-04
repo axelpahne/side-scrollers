@@ -32,16 +32,20 @@ let spawnRate = 1500;
 
 
 //Create all images
+
+//Tesla sprite
 const teslaSprite = new Image();
 teslaSprite.src = './images/sprite-liggande.png';
+//Galaxy (Background)
 const background = new Image();
 background.src = './images/galaxy.jpg';
+//Moon
 const moon = new Image();
-moon.src = './images/asteroid.png';
+moon.src = './images/moon.png';
 const boomImg = new Image();
 boomImg.src = './images/boom.png';
 const winImg = new Image();
-winImg.src = './images/goal.png';
+winImg.src = './images/win-02.png';
 const spaceImg = new Image();
 spaceImg.src = './images/spaceship.svg';
 const spaceship = new Image();
@@ -53,9 +57,8 @@ astronaut.src = './images/astronaut.png';
 const satellite = new Image();
 satellite.src = './images/satellite.png';
 
-
 // let arrayImg = [spaceImg, background, moon]
-let arrayImg = [spaceship, asteroid2, astronaut, satellite]
+let arrayImg = [spaceship, asteroid2, astronaut, satellite, moon]
 
 
 //Start program (Paint Canvas)
@@ -282,7 +285,7 @@ function animate() {
     myScore.innerHTML = score
 
     // If on collison and score is less than valie then run...
-    if (runAnimation == true && score <= 70) {
+    if (runAnimation == true && score <= 30) {
 
         //Clears Canvas
         ctx.clearRect(0, 0, canvas.width, canvas.height)
@@ -326,7 +329,7 @@ function animate() {
         console.log('nooo')
         gameOver()
 
-    } else if (score = 70) {
+    } else if (score = 30) {
 
         console.log('nooosss')
 
@@ -386,12 +389,12 @@ function randomMoon() {
     let x = getRandomIntInclusive(canvas.width - 100, canvas.width);
 
 
-    let index = getRandomIntInclusive(0, 2)
+    let index = getRandomIntInclusive(0, 4)
 
     arrayImg[index]
 
     // Set moon size
-    let width = getRandomIntInclusive(100, 500);
+    let width = getRandomIntInclusive(100, 300);
     let height = width;
 
     // Create moon object
