@@ -54,6 +54,8 @@ const astronaut = new Image();
 astronaut.src = './images/astronaut.png';
 const satellite = new Image();
 satellite.src = './images/satellite.png';
+const gameOverImg = new Image();
+gameOverImg.src = './images/game-over.png';
 
 // let arrayImg = [spaceImg, background, moon]
 let arrayImg = [spaceship, asteroid2, astronaut, satellite, moon]
@@ -126,6 +128,10 @@ function gameOver() {
     //Draws Boom Image
     ctx.drawImage(boomImg, character.x + 220, character.y - 40, 250, 250);
 
+    //Draws Game Over Image
+    ctx.drawImage(gameOverImg, (canvas.width / 4) - 50, canvas.height / 3, 800, 300);
+
+
     //Removes play button
     startBtn.style.display = ''
 
@@ -137,11 +143,13 @@ function gameOver() {
     myAudio.src = "sounds/explosion.wav"
     myAudio.play();
 
+
+
 }
 
 
 /**
- *@Description Game over
+ *@Description Win game
  */
 
 function winGame() {
