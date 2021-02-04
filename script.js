@@ -55,6 +55,9 @@ astronaut.src = './images/astronaut.png';
 const satellite = new Image();
 satellite.src = './images/satellite.png';
 
+const myGameOver = new Image();
+myGameOver.src = './images/game-over.png';
+
 // let arrayImg = [spaceImg, background, moon]
 let arrayImg = [spaceship, asteroid2, astronaut, satellite, moon]
 
@@ -75,6 +78,24 @@ startBtn.addEventListener("click", event => {
 
     console.log('hej')
     startGame()
+
+});
+
+let curL = document.getElementById('curtain-left')
+let curR = document.getElementById('curtain-right')
+
+
+// Event Listener (Listens for click on curtain)
+curL.addEventListener("click", event => {
+
+    curL.remove();
+
+});
+
+// Event Listener (Listens for click on curtain)
+curR.addEventListener("click", event => {
+
+    curR.remove();
 
 });
 
@@ -125,6 +146,9 @@ function gameOver() {
 
     //Draws Boom Image
     ctx.drawImage(boomImg, character.x + 220, character.y - 40, 250, 250);
+
+    ctx.drawImage(myGameOver, (canvas.width / 4) - 50, canvas.height / 3, 800, 300);
+
 
     //Removes play button
     startBtn.style.display = ''
@@ -198,14 +222,29 @@ function createCanvas() {
     //Create canvas
     let section = document.createElement('section')
     let myCanvas = document.createElement('canvas');
+    let header = document.createElement('header')
+    let curtainLeft = document.createElement('em');
+    let curtainRight = document.createElement('em');
+    let headerImg = document.createElement('img');
 
     //Insert element to element
+    section.insertAdjacentElement('beforeend', curtainLeft);
+    section.insertAdjacentElement('beforeend', curtainRight);
     section.insertAdjacentElement('beforeend', myCanvas);
+    header.insertAdjacentElement('beforeend', headerImg);
+    // section.insertAdjacentElement('afterbegin', header);
 
     //Add element classes & Ids
     section.id = 'section'
+    curtainLeft.id = 'curtain-left'
+    curtainRight.id = 'curtain-right'
+    header.id = 'header'
+    headerImg.src = './images/musk.png'
+    headerImg.height = '150';
+    headerImg.width = '900';
 
     //Append Elements
+    document.body.insertAdjacentElement('afterbegin', header);
     document.body.insertAdjacentElement('beforeend', section);
 
     //Canvas size
@@ -223,6 +262,7 @@ function createElements(idValue) {
 
     //Get section
     let section = document.getElementById('section')
+
 
     //Declare variables
     let div = document.createElement('div')
@@ -250,7 +290,7 @@ function createElements(idValue) {
     h2.innerHTML = 'Score'
 
     //Insert element to body
-    section.insertAdjacentElement("afterbegin", div)
+    section.insertAdjacentElement("beforeend", div)
 }
 
 /**
@@ -303,7 +343,7 @@ function animate() {
     myScore.innerHTML = score
 
     // If on collison and score is less than valie then run...
-    if (runAnimation == true && score <= 30) {
+    if (runAnimation == true && score <= 50) {
 
         //Clears Canvas
         ctx.clearRect(0, 0, canvas.width, canvas.height)
@@ -347,7 +387,7 @@ function animate() {
         console.log('nooo')
         gameOver()
 
-    } else if (score = 30) {
+    } else if (score = 50) {
 
         console.log('nooosss')
         winGame()
