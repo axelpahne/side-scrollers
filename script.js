@@ -163,6 +163,7 @@ function gameOver() {
     //Plays sound
     myAudio = document.getElementById('myAudio')
     myAudio.src = "sounds/explosion.wav"
+    myAudio.volume = 0.2;
     myAudio.play();
 
 }
